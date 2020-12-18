@@ -139,7 +139,7 @@ public:
 
 
 	}
-	void Display()
+	void Displayall()
 	{	    
 		cout << "Key"<<setw(10)<< "status" << setw(10) << "Binary"<<setw(10) << "Data"<<endl;
 		key_Node* temp2=head;
@@ -148,6 +148,18 @@ public:
 			cout <<setw(10)<< temp2->key << setw(10) << temp2->status <<setw(10) << temp2->key_in_binary<< setw(10)<< temp2->data_in<<endl;
 			temp2 = temp2->next;
 		}
+
+	}
+
+	void Displayactive(){
+			cout << "Key"<<setw(10)<< "status" << setw(10) << "Binary"<<setw(10) << "Data"<<endl;
+		key_Node* temp2=head;
+		while (temp2!= NULL)
+		{   
+			if(temp2->status==true) {std::cout << std::left;
+			cout <<setw(10)<< temp2->key << setw(10) << temp2->status <<setw(10) << temp2->key_in_binary<< setw(10)<< temp2->data_in<<endl;
+		}
+					temp2 = temp2->next;}
 
 	}
 

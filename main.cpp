@@ -3,6 +3,8 @@
 
 int main(){
 int nmachiness;
+int key;
+string dt;
 cout <<"Enter number of machines you want" << endl;
 cin >> nmachiness;
 cout << "Enter number of bits you want for each machine" << endl;
@@ -14,9 +16,16 @@ for(int i=i+1;i<nmachiness+1;i++){
 }
 
 L.display_machines();
-machine_node* m = L.get_machine(5);
-m->HT.insertin(3,"HI");
-m->HT.Display();
+cout <<"In which machine would you like to insert a key" << endl;
+cin >> nmachiness;
+machine_node* m = L.get_machine(nmachiness);
+
+cout <<"Enter key" << endl;
+cin >> key;
+cout <<"Enter value" << endl;
+cin >> dt;
+m->HT.insertin(key,dt);
+m->HT.Displayactive();
 
 
     return 0;
