@@ -2,17 +2,22 @@
 
 
 int main(){
-system_bits = 4;
+int nmachiness;
+cout <<"Enter number of machines you want" << endl;
+cin >> nmachiness;
+cout << "Enter number of bits you want for each machine" << endl;
+cin >> system_bits;
 number_of_Ports = static_cast<short>(pow(2, system_bits));
 Machines L;
-L.create_machine(5);
-L.create_machine(7);
-L.create_machine(8);
-L.create_machine(9);
+for(int i=i+1;i<nmachiness+1;i++){
+	L.create_machine(i);
+}
+
 L.display_machines();
 machine_node* m = L.get_machine(5);
+m->HT.insertin(3,"HI");
 m->HT.Display();
-	
+
 
     return 0;
 }

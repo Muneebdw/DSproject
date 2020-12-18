@@ -1,8 +1,12 @@
 #include<iostream>
 #include<cmath>
 #include<cstdio>
+#include <string>
 #include<cstdlib>
+#include <iomanip>
 using namespace std;
+
+
 short int system_bits=4;
 short int number_of_Ports=1;
 short int number_of_Hubs=1;
@@ -25,6 +29,7 @@ struct key_Node
 {
 	short int key;
 	bool status;
+	string data_in;
 	int key_in_binary;
 	key_Node* next;
 };
@@ -89,8 +94,8 @@ public:
 		}
 
 	}
-	bool change_key_status(short int key_argument,bool status_argument)
-	{
+	bool insertin(short int key_argument,string data)
+	{bool status_argument = true;
 		if (key_argument >= number_of_Ports)
 		{
 			cout << "such key does not exist............\n";
@@ -103,7 +108,9 @@ public:
 			{
 				temp2->status= status_argument;
 				cout << "\nchanged sucefully.............\n";
+				temp2->data_in = data;
 				return true;
+				temp2->data_in = data;
 			}
 			temp2 = temp2->next;
 		}
@@ -133,13 +140,12 @@ public:
 
 	}
 	void Display()
-	{
-
+	{	    
+		cout << "Key"<<setw(10)<< "status" << setw(10) << "Binary"<<setw(10) << "Data"<<endl;
 		key_Node* temp2=head;
 		while (temp2!= NULL)
-		{
-			cout << temp2->key << "  " << temp2->status <<temp2->key_in_binary<<
-				endl;
+		{    std::cout << std::left;
+			cout <<setw(10)<< temp2->key << setw(10) << temp2->status <<setw(10) << temp2->key_in_binary<< setw(10)<< temp2->data_in<<endl;
 			temp2 = temp2->next;
 		}
 
