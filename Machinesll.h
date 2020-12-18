@@ -5,11 +5,13 @@ struct machine_node
 	keys_tree HT;
     int info;
     struct machine_node *next;
+    string filepath;
 }*last;
  
 
 class Machines
-{
+{private:
+int machine_count;
     public:
         void create_machine(int value);
         void add_begin(int value);
@@ -46,7 +48,11 @@ void Machines::create_machine(int value)
 	//Updates no of ports in each new machine added
 		keys_tree T1;
 		last->HT = T1;
-
+    //creates file
+        last->filepath = "./Machinesres/m" +to_string(machine_count) + "Data.txt";
+        std::ofstream outfile (last->filepath);
+        outfile.close();
+        machine_count++;
 }
 
 void Machines::add_begin(int value)

@@ -3,7 +3,10 @@
 #include<cstdio>
 #include <string>
 #include<cstdlib>
+#include <sys/stat.h>
 #include <iomanip>
+#include <fstream>
+
 using namespace std;
 
 
@@ -94,6 +97,24 @@ public:
 		}
 
 	}
+	string get(int key){
+			if (key>= number_of_Ports)
+		{
+			cout << "such key does not exist\n";
+			return "";
+		}
+				key_Node* temp2 = head;
+
+		while (temp2 != NULL)
+		{
+			if (temp2->key == key)
+			{
+				return temp2->data_in;
+			}
+			temp2 = temp2->next;
+		}
+	}
+
 	bool insertin(short int key_argument,string data)
 	{bool status_argument = true;
 		if (key_argument >= number_of_Ports)

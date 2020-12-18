@@ -2,8 +2,8 @@
 
 
 int main(){
-int nmachiness;
-int key;
+
+int nmachiness,key,m_id;
 string dt;
 cout <<"Enter number of machines you want" << endl;
 cin >> nmachiness;
@@ -17,18 +17,19 @@ for(int i=i+1;i<nmachiness+1;i++){
 
 L.display_machines();
 cout <<"In which machine would you like to insert a key" << endl;
-cin >> nmachiness;
-machine_node* m = L.get_machine(nmachiness);
+cin >> m_id;
+machine_node* m = L.get_machine(m_id);
 
 cout <<"Enter key" << endl;
 cin >> key;
 cout <<"Enter value" << endl;
 cin >> dt;
 m->HT.insertin(key,dt);
+
 m->HT.Displayactive();
+cout << m->HT.get(3);
 
-
-    return 0;
+  return 0;
 }
 
 
