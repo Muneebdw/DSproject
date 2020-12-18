@@ -1,9 +1,11 @@
 #include<iostream>
 #include<cmath>
+#include<cstdio>
+#include<cstdlib>
 using namespace std;
-short int system_bits;
-short int number_of_Ports;
-short int number_of_Hubs;
+short int system_bits=4;
+short int number_of_Ports=1;
+short int number_of_Hubs=1;
 
 int convertDecimal_to_Binary(int n)
 {

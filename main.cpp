@@ -2,7 +2,24 @@
 
 
 int main(){
-	cout << "Enter number of Ports that the circular line of database should have (bit wise system):  ";
+system_bits = 4;
+number_of_Ports = static_cast<short>(pow(2, system_bits));
+Machines L;
+L.create_machine(5);
+L.create_machine(7);
+L.create_machine(8);
+L.create_machine(9);
+L.display_machines();
+machine_node* m = L.get_machine(5);
+m->HT.Display();
+	
+
+    return 0;
+}
+
+
+
+	/*cout << "Enter number of Ports that the circular line of database should have (bit wise system):  ";
 	cin >> system_bits;
 	number_of_Ports = static_cast<short>(pow(2, system_bits));
 	cout << "\n" << number_of_Ports << endl;
@@ -18,25 +35,4 @@ int main(){
 	my1.Display();
 	cout << "Enter number of Hubs that the system has :  ";
 	cin >> number_of_Hubs;
-	cout << "hello world\n";
-
-
-	cout << "hello world\n";
-	Machines my_test;
-
-	my_test.creator_and_addAtEnd(1);
-	my_test.creator_and_addAtEnd(2);
-	my_test.creator_and_addAtEnd(3);
-
-	Machine_node* my3 = my_test.Port_station_node_creator(4);
-	my_test.addAtEnd_new_Node(my3);
-	my3 = my_test.Port_station_node_creator(5);
-	my_test.addAtEnd_new_Node(my3);
-	my_test.Display();
-	cout << endl << my_test.search(4);
-	Machine_node* my2 = my_test.search(5);
-	cout << my2->data;
-	cout << "\nhello world";
-
-    return 0;
-}
+	cout << "hello world\n";*/
