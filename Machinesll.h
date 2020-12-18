@@ -47,7 +47,7 @@ public:
 				cout<<temp->data<<endl;
 				temp2=temp2->next;
 				}
-		}*/
+		}}*/
 		Machine_node* temp = head;
 		cout << temp->data;
 		temp = temp->next;
