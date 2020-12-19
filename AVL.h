@@ -6,13 +6,25 @@
 #include <sys/stat.h>
 #include <iomanip>
 #include <fstream>
-
+#include <time.h>
 using namespace std;
 
-
+string char_arr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 short int system_bits=4;
 short int number_of_Ports=1;
 short int number_of_Hubs=1;
+
+string hashfunc(int i){
+
+string r="";
+for(int i=0;i<3;i++){
+r += char_arr[rand( ) % 27];}
+r+= to_string(i);
+r+= to_string(i%number_of_Ports);
+for(int i=0;i<2;i++){
+r += char_arr[rand( ) % 27];}
+return r;
+}
 
 int convertDecimal_to_Binary(int n)
 {
@@ -31,6 +43,7 @@ int convertDecimal_to_Binary(int n)
 struct key_Node
 {
 	short int key;
+	string hkey;
 	bool status;
 	string data_in;
 	int key_in_binary;
@@ -54,6 +67,7 @@ public:
 				temp->key_in_binary = convertDecimal_to_Binary(i);
 				temp->next = NULL;
 				temp->status = false;
+				temp->hkey = hashfunc(i);
 				head = temp;
 			}
 			else
@@ -64,12 +78,14 @@ public:
 				temp->key_in_binary = convertDecimal_to_Binary(i);
 				temp->next = NULL;
 				temp->status = false;
+				temp->hkey = hashfunc(i);
 				key_Node* temp2 = head;
 				while (temp2->next != NULL)
 				{
 					temp2 = temp2->next;
 				}
 				temp2->next = temp;
+
 
 			}
 
@@ -173,12 +189,12 @@ public:
 	}
 
 	void Displayactive(){
-			cout << "Key"<<setw(10)<< "status" << setw(10) << "Binary"<<setw(10) << "Data"<<endl;
+			cout << "Key"<<setw(10)<<"Hash key" << setw(20)<< "status" << setw(10) << "Binary"<<setw(10) << "Data"<<endl;
 		key_Node* temp2=head;
 		while (temp2!= NULL)
 		{   
 			if(temp2->status==true) {std::cout << std::left;
-			cout <<setw(10)<< temp2->key << setw(10) << temp2->status <<setw(10) << temp2->key_in_binary<< setw(10)<< temp2->data_in<<endl;
+			cout <<setw(10)<< temp2->key << setw(20)<<temp2->hkey<<setw(10) << temp2->status <<setw(10) << temp2->key_in_binary<< setw(10)<< temp2->data_in<<endl;
 		}
 					temp2 = temp2->next;}
 

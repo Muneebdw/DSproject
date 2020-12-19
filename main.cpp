@@ -33,6 +33,7 @@ return t;
 }
 
 int main(){
+srand(time(NULL));  
 //initialization
 int nmachiness,key,m_id;
 string dt;
