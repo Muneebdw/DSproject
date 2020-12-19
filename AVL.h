@@ -100,7 +100,7 @@ public:
 	string get(int key){
 			if (key>= number_of_Ports)
 		{
-			cout << "such key does not exist\n";
+			//cout << "such key does not exist\n";
 			return "";
 		}
 				key_Node* temp2 = head;
@@ -184,6 +184,13 @@ public:
 
 	}
 
+	void writetofile(string filepath,int key , string data_in){
+		std::ofstream outfile (filepath);
+		outfile << key << setw(10) << data_in <<"\n";
+
+		outfile.close();
+
+	}
 
 
 };

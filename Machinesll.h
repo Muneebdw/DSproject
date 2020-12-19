@@ -11,17 +11,19 @@ struct machine_node
 
 class Machines
 {private:
-int machine_count;
+int machine_count=1;
     public:
         void create_machine(int value);
         void add_begin(int value);
         void add_after(int value, int position);
         void delete_machines(int value);
         void search_machine(int value);
+        string search_all(int key);
 		machine_node* get_machine(int value);
         void display_machines();
         void update();
         void sort();
+        
         Machines()
         {
             last = NULL;           
@@ -179,8 +181,8 @@ machine_node* Machines::get_machine(int value)
         counter++;
         if (s->info == value)    
         {
-            cout<<"Machine "<<value; 
-            cout<<" found at position "<<counter<<endl;
+            //cout<<"Machine "<<value; 
+            //cout<<" found at position "<<counter<<endl;
             return s;
         }
         s = s->next;
@@ -272,4 +274,27 @@ void Machines::sort()
         }
         s = s->next;         
     }
+}
+
+string Machines::search_all(int key){
+bool found;
+string tf,dt="";
+int mkey;
+for(int i=1;i<machine_count;i++){
+    machine_node* t = this->get_machine(i);
+    tf=t->HT.get(key);
+    if(tf!=""){
+    found=true;
+    mkey = machine_count;
+    dt = tf;
+    }
+}
+if(found==true){
+cout <<"Key found at machine # " << mkey<<endl;
+return dt;
+}
+else{
+    cout <<"Key doesnt exist anywhere" << endl;
+}
+    return "";
 }

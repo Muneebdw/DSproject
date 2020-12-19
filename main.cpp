@@ -1,8 +1,39 @@
 #include "Machinesll.h"
 
+void insertat(Machines L){
+int m_id, key;
+string dt;
+cout <<"In which machine would you like to insert a key" << endl;
+cin >> m_id;
+machine_node* m = L.get_machine(m_id);
+
+cout <<"Enter key" << endl;
+cin >> key;
+cout <<"Enter value" << endl;
+cin >> dt;
+m->HT.insertin(key,dt);
+m->HT.writetofile(m->filepath,key,dt);
+
+}
+
+void disp_active(Machines L){
+int m_id;
+cout <<"In which machine would you like to show active ports" << endl;
+cin >> m_id;
+machine_node* m = L.get_machine(m_id);
+m->HT.Displayactive();
+}
+
+string get(Machines L){
+int key;
+cout <<"Enter key to search for" << endl;
+cin >> key;
+string t =  L.search_all(key);
+return t;
+}
 
 int main(){
-
+//initialization
 int nmachiness,key,m_id;
 string dt;
 cout <<"Enter number of machines you want" << endl;
@@ -16,22 +47,53 @@ for(int i=i+1;i<nmachiness+1;i++){
 }
 
 L.display_machines();
-cout <<"In which machine would you like to insert a key" << endl;
-cin >> m_id;
-machine_node* m = L.get_machine(m_id);
+//
+bool menu = true;
+int choice;
+while(menu){
+cout <<"\t\t MENU" << endl;
+cout<<"Enter Accordingly" << endl;
+cout<<"1- To insert a value" << endl;
+cout<<"2- To get a value" << endl;
+cout<<"5- Display Active ports of a machine" << endl;
+cout<<"9- To exit" << endl;
+cout<<"--------------" << endl;
+cin >> choice;
+string ptemp;
+switch(choice){
+	case 1:
+	insertat(L);
+	break;
 
-cout <<"Enter key" << endl;
-cin >> key;
-cout <<"Enter value" << endl;
-cin >> dt;
-m->HT.insertin(key,dt);
+	case 2:	
+	ptemp = get(L);
+	cout << "Value at key = " << ptemp << endl;
+	break;
 
-m->HT.Displayactive();
-cout << m->HT.get(3);
+	case 3:
+	break;
+
+	case 4:
+	break;
+
+	case 5:
+	disp_active(L);
+
+	break;
+
+	case 6:
+	break;
+
+	case 9:
+	menu = false;
+	break;
+}
+}
+
+
 
   return 0;
 }
-
 
 
 	/*cout << "Enter number of Ports that the circular line of database should have (bit wise system):  ";
