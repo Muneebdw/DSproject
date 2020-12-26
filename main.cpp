@@ -19,7 +19,7 @@ if(choiceof=="Y" || choiceof=="y"){
 manuallyassgn= true;}
 Machines L;
 if(manuallyassgn==false){
-for(int i=i+1;i<nmachiness+1;i++){
+for(int i=1;i<nmachiness+1;i++){
 	L.create_machine(i);
 }}
 else{
