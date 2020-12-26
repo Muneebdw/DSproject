@@ -9,205 +9,219 @@
 #include <time.h>
 using namespace std;
 
-string char_arr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-short int system_bits=4;
-short int number_of_Ports=1;
-short int number_of_Hubs=1;
 
-string hashfunc(int i){
-
-string r="";
-for(int i=0;i<3;i++){
-r += char_arr[rand( ) % 27];}
-r+= to_string(i);
-r+= to_string(i%number_of_Ports);
-for(int i=0;i<2;i++){
-r += char_arr[rand( ) % 27];}
-return r;
-}
-
-int convertDecimal_to_Binary(int n)
-{
-	int binaryNumber = 0;
-	int  remainder, i = 1, step = 1;
-	while (n != 0)
-	{
-		remainder = n % 2;
-		n /= 2;
-		binaryNumber += remainder* i;
-		i *= 10;
-	}
-	return binaryNumber;
-}
-
-struct key_Node
-{
-	short int key;
-	string hkey;
-	bool status;
-	string data_in;
-	int key_in_binary;
-	key_Node* next;
-};
-
-class keys_tree
-{
+// AVL TREE   AVL TREE open  AVL TREE open  AVL TREE open   AVL TREE  AVL TREE open  AVL TREE open
+class MyDS {
 private:
-	key_Node* head=NULL;
+	struct treeNode
+	{
+		int key;
+		treeNode* left;
+		treeNode* right;
+		int height;
+		std::string data;
+		treeNode() 
+		{
+			left = NULL; right = NULL; height = 0;
+		};
+		treeNode(const std::string& v, treeNode* l, treeNode* r, int h) { data = v; left = l;  right = r; height = h; };
+	};
+
+	treeNode* root;
+	void push(const std::string& n, treeNode*& v);
+	bool search(const std::string& s, treeNode*& tree);
 public:
-	keys_tree()
-	{
-		for (int i = 0; i<number_of_Ports; i++)
-		{
-			if (i == 0)
-			{
-				key_Node* temp;
-				temp = new key_Node;
-				temp->key = i;
-				temp->key_in_binary = convertDecimal_to_Binary(i);
-				temp->next = NULL;
-				temp->status = false;
-				temp->hkey = hashfunc(i);
-				head = temp;
-			}
-			else
-			{
-				key_Node* temp;
-				temp = new key_Node;
-				temp->key = i;
-				temp->key_in_binary = convertDecimal_to_Binary(i);
-				temp->next = NULL;
-				temp->status = false;
-				temp->hkey = hashfunc(i);
-				key_Node* temp2 = head;
-				while (temp2->next != NULL)
-				{
-					temp2 = temp2->next;
-				}
-				temp2->next = temp;
-
-
-			}
-
-
-
-
-
-		}
-	}
-	bool get_Port_status(short int key_argument)
-	{
-		if (key_argument>= number_of_Ports)
-		{
-			cout << "such key does not exist\n";
-			return false;
-		}
-		key_Node* temp2 = head;
-		while (temp2 != NULL)
-		{
-			if (temp2->key == key_argument)
-			{
-				return temp2->status;
-			}
-			temp2 = temp2->next;
-		}
-
-	}
-	string get(int key){
-			if (key>= number_of_Ports)
-		{
-			//cout << "such key does not exist\n";
-			return "";
-		}
-				key_Node* temp2 = head;
-
-		while (temp2 != NULL)
-		{
-			if (temp2->key == key)
-			{
-				return temp2->data_in;
-			}
-			temp2 = temp2->next;
-		}
-	}
-
-	bool insertin(short int key_argument,string data)
-	{bool status_argument = true;
-		if (key_argument >= number_of_Ports)
-		{
-			cout << "such key does not exist............\n";
-			return false;
-		}
-		key_Node* temp2 = head;
-		while (temp2 != NULL)
-		{
-			if (temp2->key == key_argument)
-			{
-				temp2->status= status_argument;
-				cout << "\nchanged sucefully.............\n";
-				temp2->data_in = data;
-				return true;
-				temp2->data_in = data;
-			}
-			temp2 = temp2->next;
-		}
-	}
-	void Extend_the_Ports_keys_array()
-	{
-		key_Node* temp2 = head;
-		while (temp2->next!= NULL)
-		{
-			
-			temp2 = temp2->next;
-		}
-		short int tempreory_port_numbers = temp2->key;
-		for (int i = tempreory_port_numbers + 1; i < number_of_Ports; i++)
-		{
-			key_Node* temp;
-			temp = new key_Node;
-			temp->key = i;
-			temp->key_in_binary = convertDecimal_to_Binary(i);
-			temp->next = NULL;
-			temp->status = false;
-			temp2->next = temp;
-			temp2=temp;
-		}
-
-
-
-	}
-	void Displayall()
-	{	    
-		cout << "Key"<<setw(10)<< "status" << setw(10) << "Binary"<<setw(10) << "Data"<<endl;
-		key_Node* temp2=head;
-		while (temp2!= NULL)
-		{    std::cout << std::left;
-			cout <<setw(10)<< temp2->key << setw(10) << temp2->status <<setw(10) << temp2->key_in_binary<< setw(10)<< temp2->data_in<<endl;
-			temp2 = temp2->next;
-		}
-
-	}
-
-	void Displayactive(){
-			cout << "Key"<<setw(10)<<"Hash key" << setw(20)<< "status" << setw(10) << "Binary"<<setw(10) << "Data"<<endl;
-		key_Node* temp2=head;
-		while (temp2!= NULL)
-		{   
-			if(temp2->status==true) {std::cout << std::left;
-			cout <<setw(10)<< temp2->key << setw(20)<<temp2->hkey<<setw(10) << temp2->status <<setw(10) << temp2->key_in_binary<< setw(10)<< temp2->data_in<<endl;
-		}
-					temp2 = temp2->next;}
-
-	}
-
-	void writetofile(string filepath,int key , string data_in){
-		std::ofstream outfile (filepath);
-		outfile << key << setw(10) << data_in <<"\n";
-
-		outfile.close();
-
-	}
-
-
+	MyDS();
+	~MyDS();
+	void push(const std::string& n);
+	void printPreOrder() const;
+	void preOrder(treeNode* pre) const;
+	void clear(treeNode*& tree);
+	void singleRightRotate(treeNode*& n);
+	void doubleRightRotate(treeNode*& n);
+	void singleLeftRotate(treeNode*& n);
+	void doubleLeftRotate(treeNode*& n);
+	bool search(const std::string& s);
+	int avlHeight(treeNode* h);
+	int max(int v1, int v2);
 };
+MyDS::MyDS()
+{
+	root = NULL;
 
+}
+
+MyDS::~MyDS()
+{
+	clear(root);
+}
+
+void MyDS::push(const std::string& n)
+{
+	push(n, root);
+}
+
+void MyDS::singleRightRotate(treeNode*& n)
+{
+	treeNode* temp;
+	temp = n->right;
+	n->right = temp->left;
+	temp->left = n;
+	n = temp;
+	n->height = max(avlHeight(n->left), avlHeight(n->right)) + 1;
+	temp->height = max(n->height, avlHeight(temp->right)) + 1;
+
+
+}
+
+void MyDS::singleLeftRotate(treeNode*& n)
+{
+	treeNode* temp;
+	temp = n->left;
+	n->left = temp->right;
+	temp->right = n;
+	n = temp;
+	n->height = max(avlHeight(n->left), avlHeight(n->right)) + 1;
+	temp->height = max(avlHeight(temp->left), n->height) + 1;
+}
+
+void MyDS::doubleRightRotate(treeNode*& n)
+{
+	singleLeftRotate(n->right);
+	singleRightRotate(n);
+}
+
+void MyDS::doubleLeftRotate(treeNode*& n)
+{
+	singleRightRotate(n->left);
+	singleLeftRotate(n);
+}
+
+int MyDS::max(int v1, int v2)
+{
+	return ((v1 > v2) ? v1 : v2);
+}
+
+int MyDS::avlHeight(treeNode* h)
+{
+	int n;
+	if (h == NULL)
+	{
+		return -1;
+	}
+	else
+	{
+		n = h->height;
+		return n;
+	}
+
+}
+
+
+bool MyDS::search(const std::string& s, treeNode*& tree)
+{
+	if (tree == NULL)
+	{
+		return false;
+	}
+	if (s < tree->data)
+	{
+		return search(s, tree->left);
+	}
+	if (tree->data < s)
+	{
+		return search(s, tree->right);
+	}
+	return true; // We found the value.
+}
+
+bool MyDS::search(const std::string& x)
+{
+	if (search(x, root))
+	{
+		return true;
+	}
+	else
+		return false;
+}
+
+void MyDS::clear(treeNode*& tree)
+{
+	if (tree != NULL)
+	{
+		clear(tree->left);
+		clear(tree->right);
+		delete tree;
+
+	}
+
+	tree = NULL;
+}
+
+void MyDS::push(const std::string& n, treeNode*& v)
+{
+	if (v == NULL)
+	{
+		v = new treeNode(n, NULL, NULL, 0);
+	}
+	else
+	{
+		if (n < v->data)
+		{
+			push(n, v->left);   // goes to left node
+
+			if ((avlHeight(v->left) - avlHeight(v->right)) == 2)
+			{
+				if (n < v->left->data)
+				{
+					singleLeftRotate(v);
+				}
+				else
+				{
+					doubleLeftRotate(v);
+				}
+			}
+		}
+		else if (v->data < n)
+		{
+			push(n, v->right);  // goes to right node
+			if ((avlHeight(v->right) - avlHeight(v->left)) == 2)
+			{
+				if (n > v->right->data)
+				{
+					singleRightRotate(v);
+				}
+				else
+				{
+					doubleRightRotate(v);
+				}
+			}
+		}
+		else
+		{
+			; // duplicate; do nothing.
+		}
+	}
+	int a, b, c;
+	a = avlHeight(v->left);
+	b = avlHeight(v->right);
+	c = max(a, b);
+	v->height = c + 1;
+
+}
+
+void MyDS::printPreOrder() const
+{
+	preOrder(root);
+}
+
+
+void MyDS::preOrder(treeNode* pre) const
+{
+	if (pre != NULL)
+	{
+		std::cout << " " << pre->data << " ";
+		preOrder(pre->left);
+		preOrder(pre->right);
+	}
+}

@@ -1,63 +1,54 @@
-#include "Machinesll.h"
-
-void insertat(Machines L){
-int m_id, key;
-string dt;
-cout <<"In which machine would you like to insert a key" << endl;
-cin >> m_id;
-machine_node* m = L.get_machine(m_id);
-
-cout <<"Enter key" << endl;
-cin >> key;
-cout <<"Enter value" << endl;
-cin >> dt;
-m->HT.insertin(key,dt);
-m->HT.writetofile(m->filepath,key,dt);
-
-}
-
-void disp_active(Machines L){
-int m_id;
-cout <<"In which machine would you like to show active ports" << endl;
-cin >> m_id;
-machine_node* m = L.get_machine(m_id);
-m->HT.Displayactive();
-}
-
-string get(Machines L){
-int key;
-cout <<"Enter key to search for" << endl;
-cin >> key;
-string t =  L.search_all(key);
-return t;
-}
+#include "DHT.h"
 
 int main(){
 srand(time(NULL));  
 //initialization
-int nmachiness,key,m_id;
-string dt;
+bool manuallyassgn=false;
+int key;
+machine_node* curm;
+string dt,choiceof;
 cout <<"Enter number of machines you want" << endl;
 cin >> nmachiness;
 cout << "Enter number of bits you want for each machine" << endl;
 cin >> system_bits;
 number_of_Ports = static_cast<short>(pow(2, system_bits));
+cout <<"Do you wanna manually assign ID's to the machines?    Y/N"<<endl;
+cin >> choiceof;
+
+if(choiceof=="Y" || choiceof=="y"){
+manuallyassgn= true;}
 Machines L;
+if(manuallyassgn==false){
 for(int i=i+1;i<nmachiness+1;i++){
 	L.create_machine(i);
+}}
+else{
+	for(int i=i+1;i<nmachiness+1;i++){
+		int tempint;
+		cout <<"Enter Machine ID for machine # " << i<<" :: ";
+		cin >> tempint;
+		L.create_machine(tempint);
+	}
 }
 
 L.display_machines();
 //
 bool menu = true;
 int choice;
+m_id = 1;
 while(menu){
+cout <<" \n \n \n Active Machine :: " << m_id<< endl;
 cout <<"\t\t MENU" << endl;
 cout<<"Enter Accordingly" << endl;
 cout<<"1- To insert a value" << endl;
 cout<<"2- To get a value" << endl;
+cout<<"4- Display All ports of a machine" << endl;
 cout<<"5- Display Active ports of a machine" << endl;
-cout<<"9- To exit" << endl;
+cout<<"6- Show all Machines Active ports" << endl;
+cout<<"7- Display all machines" << endl;
+cout<<"8- Add new machine" << endl;
+cout<<"9- Delete a machine" << endl;
+cout<<"10- To exit" << endl;
 cout<<"--------------" << endl;
 cin >> choice;
 string ptemp;
@@ -75,17 +66,30 @@ switch(choice){
 	break;
 
 	case 4:
+	disp_all(L);
 	break;
 
 	case 5:
 	disp_active(L);
-
 	break;
 
 	case 6:
+	allm_disp_active(L,nmachiness);
+	break;
+
+	case 7:
+	displayallmachines(L);
+	break;
+
+	case 8:
+	addnewmachine(L);
 	break;
 
 	case 9:
+	deletemachine(L);
+	break;
+
+	case 10:
 	menu = false;
 	break;
 }

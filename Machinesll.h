@@ -1,5 +1,5 @@
+#include "Keystree.h"
 #include "AVL.h"
-
 struct machine_node
 {
 	keys_tree HT;
@@ -56,6 +56,8 @@ void Machines::create_machine(int value)
         outfile.close();
         machine_count++;
 }
+
+
 
 void Machines::add_begin(int value)
 {
