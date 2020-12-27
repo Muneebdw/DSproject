@@ -14,18 +14,17 @@ cin >> system_bits;
 number_of_Ports = static_cast<short>(pow(2, system_bits));
 cout <<"Do you wanna manually assign ID's to the machines?    Y/N"<<endl;
 cin >> choiceof;
-
 if(choiceof=="Y" || choiceof=="y"){
 manuallyassgn= true;}
 Machines L;
 if(manuallyassgn==false){
-for(int i=i+1;i<nmachiness+1;i++){
+for(int i=1;i<nmachiness+1;i++){
 	L.create_machine(i);
 }}
 else{
-	for(int i=i+1;i<nmachiness+1;i++){
+	for(int i=1;i<nmachiness+1;i++){
 		int tempint;
-		cout <<"Enter Machine ID for machine # " << i<<" :: ";
+		cout <<"Enter Machine ID for machine # " << i;
 		cin >> tempint;
 		L.create_machine(tempint);
 	}
@@ -42,17 +41,23 @@ cout <<"\t\t MENU" << endl;
 cout<<"Enter Accordingly" << endl;
 cout<<"1- To insert a value" << endl;
 cout<<"2- To get a value" << endl;
+cout<<"3- To remove a value" << endl;
 cout<<"4- Display All ports of a machine" << endl;
 cout<<"5- Display Active ports of a machine" << endl;
 cout<<"6- Show all Machines Active ports" << endl;
 cout<<"7- Display all machines" << endl;
 cout<<"8- Add new machine" << endl;
 cout<<"9- Delete a machine" << endl;
-cout<<"10- To exit" << endl;
+cout<<"10- Print AVL Tree" << endl;
+cout<<"0- To exit" << endl;
 cout<<"--------------" << endl;
 cin >> choice;
 string ptemp;
 switch(choice){
+	case 0:
+	menu = false;
+	break;
+
 	case 1:
 	insertat(L);
 	break;
@@ -63,6 +68,7 @@ switch(choice){
 	break;
 
 	case 3:
+	removek(L);
 	break;
 
 	case 4:
@@ -90,7 +96,7 @@ switch(choice){
 	break;
 
 	case 10:
-	menu = false;
+	printavl(L);
 	break;
 }
 }

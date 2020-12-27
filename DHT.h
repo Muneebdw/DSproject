@@ -6,6 +6,22 @@ void displayallmachines(Machines L){
 L.display_machines();
 }
 
+void removek(Machines L){
+    int k;
+cout <<"Enter key to delete" << endl;
+cin >>k;
+cout <<L.delete_key(k) << endl;
+}
+
+void printavl(Machines L){
+    int m;
+    cout <<"Enter machine for which you want to print AVL Tree" << endl;
+cin >> m;
+machine_node* mac = L.get_machine(m);
+mac->AVLT.printPreOrder();
+cout << endl;
+}
+
 void addnewmachine(Machines L){
 int n;
 cout <<"Enter machine ID to add" << endl;
@@ -39,7 +55,14 @@ cout <<"Enter value" << endl;
 cin >> dt;
 m->HT.insertin(key,dt);
 m->HT.writetofile(m->filepath,key,dt);
+m->AVLT.push(dt);
 cout <<" PATH FOR insertion = " << path << endl;
+string chc;
+cout <<"Do you wanna print AVL Tree for machine # " << m_id << " ?       Y/N ";
+cin >> chc;
+if(chc=="Y"||chc=="y"){
+    m->AVLT.printPreOrder();
+}
 
 }
 

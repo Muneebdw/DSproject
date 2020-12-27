@@ -69,6 +69,7 @@ public:
 				temp->Left = NULL;
 				temp->status = false;
 				temp->hkey = hashfunc(i);
+				temp->data_in="";
 				head = temp;
 			}
 			else
@@ -80,6 +81,7 @@ public:
 				temp->Left = NULL;
 				temp->status = false;
 				temp->hkey = hashfunc(i);
+				temp->data_in="";
 				key_Node* temp2 = head;
 				while (temp2->Left != NULL)
 				{
@@ -115,11 +117,9 @@ public:
 
 	}
 	string get(int key){
-			if (key>= number_of_Ports)
-		{
+		
 			//cout << "such key does not exist\n";
-			return "";
-		}
+		
 				key_Node* temp2 = head;
 
 		while (temp2 != NULL)
@@ -130,8 +130,24 @@ public:
 			}
 			temp2 = temp2->Left;
 		}
+		return "";
 	}
+	bool deletekey(int key){
+		
+		key_Node* temp2 = head;
+		while (temp2 != NULL)
+		{
+			if (temp2->key == key)
+			{
+				temp2->status=false;
+				temp2->data_in="";
+				return true;
+			}
+			temp2 = temp2->Left;
+		}
+					return false;
 
+	}
 	bool insertin(short int key_argument,string data)
 	{bool status_argument = true;
 		if (key_argument >= number_of_Ports)
@@ -158,7 +174,6 @@ public:
 			if (temp2->key == key_argument)
 			{
 				temp2->status= status_argument;
-				cout << "\nchanged sucefully.............\n";
 				temp2->data_in = data;
 				return true;
 				temp2->data_in = data;

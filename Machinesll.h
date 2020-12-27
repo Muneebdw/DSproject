@@ -6,6 +6,7 @@ struct machine_node
     int info;
     struct machine_node *next;
     string filepath;
+    MyDS AVLT;
 }*last;
  
 
@@ -19,6 +20,8 @@ int machine_count=1;
         void delete_machines(int value);
         void search_machine(int value);
         string search_all(int key);
+        string search_all2(int key);
+        string delete_key(int key);
 		machine_node* get_machine(int value);
         void display_machines();
         void update();
@@ -56,8 +59,6 @@ void Machines::create_machine(int value)
         outfile.close();
         machine_count++;
 }
-
-
 
 void Machines::add_begin(int value)
 {
@@ -282,6 +283,7 @@ string Machines::search_all(int key){
 bool found;
 string tf,dt="";
 int mkey;
+
 for(int i=1;i<machine_count;i++){
     machine_node* t = this->get_machine(i);
     tf=t->HT.get(key);
@@ -292,11 +294,70 @@ for(int i=1;i<machine_count;i++){
     }
 }
 if(found==true){
-cout <<"Key found at machine # " << mkey<<endl;
+//cout <<"Key found at machine # " << mkey<<endl;
 return dt;
 }
 else{
     cout <<"Key doesnt exist anywhere" << endl;
 }
     return "";
+}
+
+string Machines::search_all2(int key){
+bool found;
+string tf,dt="";
+int mkey;
+
+for(int i=1;i<machine_count;i++){
+    machine_node* t = this->get_machine(i);
+    tf=t->HT.get(key);
+    if(tf!=""){
+    found=true;
+    mkey = machine_count;
+    dt = tf;
+    }
+}
+if(found==true){
+return dt;
+}
+else{
+    cout <<"Key doesnt exist anywhere" << endl;
+}
+    return "";
+}
+
+string Machines::delete_key(int key){
+bool found=false;
+string tf,dt="";
+int mkey;
+tf = "";
+tf= this->search_all2(key);
+cout <<"Value at deleted key : " << tf << endl;
+tf = "";
+
+for(int i=1;i<machine_count;i++){bool temp;
+    machine_node* t = this->get_machine(i);
+    t->AVLT.search(t->HT.get(key));
+    temp=t->HT.deletekey(key);
+    tf=tf+ "Machine " + to_string(i) +" -->";
+    if(temp==true){
+        found = temp;
+        dt = tf;
+        dt = dt + "Key found";
+        temp = false;
+        mkey = i;
+        cout <<"UPDATED AVL TREE :: ";
+        t->AVLT.printPreOrder();
+        cout << endl;
+    }
+}
+if(found==true){
+    cout <<"Request PATH : ";
+    return dt;
+}
+else
+{
+    return "Key not found";
+}
+
 }
